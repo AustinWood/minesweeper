@@ -13,4 +13,13 @@ class Tile
     tile_arr = [true] * 10 + [false] * (9 ** 2 - 10)
     tile_arr.shuffle.map { |mine| self.new(mine) }
   end
+
+  def swap_flag
+    @flagged = !@flagged
+  end
+
+  def reveal
+    @revealed = true
+  end
+
 end
