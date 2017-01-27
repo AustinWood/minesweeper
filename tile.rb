@@ -23,9 +23,15 @@ class Tile
     @revealed = true
   end
 
-  def print_mine
-    # @mine
-    "hello"
+  def mine_count(board)
+
+  end
+
+  def pos(grid)
+    grid.each_with_index do |row, i|
+      j = row.index(self)
+      return [i, j] if j
+    end
   end
 
 end
