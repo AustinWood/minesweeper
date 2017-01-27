@@ -1,7 +1,7 @@
 require_relative './tile.rb'
 
 class Board
-  attr_reader :grid
+  attr_reader :grid, :size
 
   def initialize(size = 9)
     @size = size
@@ -35,6 +35,11 @@ class Board
       puts row_str
     end
     puts ""
+  end
+
+  def [](pos)
+    row, col = pos
+    grid[row][col]
   end
 
 end

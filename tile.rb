@@ -1,3 +1,5 @@
+require_relative './board.rb'
+
 class Tile
   attr_accessor :mine, :flagged, :revealed
 
@@ -24,11 +26,31 @@ class Tile
   end
 
   def mine_count(board)
-
+    mine_count = 0
+    mine_count += horiz_mines(board)
+    mine_count += vert_mines(board)
   end
 
-  def pos(grid)
-    grid.each_with_index do |row, i|
+  def horiz_mines(board)
+    self_pos = self.pos(board)
+    left_pos = [self_pos.first, self_pos.last - 1]
+    right_pos = [self_pos.first, self_pos.last + 1]
+    mine_count = 0
+    if left_pos[1] >= 0
+      mine_count += 1 if board[left_pos].mine
+    end
+    if right_pos[1] < board.size
+      mine_count += 1 if board[right_pos].mine
+    end
+    mine_count
+  end
+
+  def vert_mines(board)
+    
+  end
+
+  def pos(board)
+    board.grid.each_with_index do |row, i|
       j = row.index(self)
       return [i, j] if j
     end
