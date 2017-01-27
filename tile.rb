@@ -1,5 +1,5 @@
 class Tile
-
+  attr_accessor :mine, :flagged, :revealed
 
   def initialize(mine)
     @mine = mine
@@ -21,6 +21,11 @@ class Tile
 
   def reveal
     @revealed = true
+  end
+
+  def print_mine
+    # @mine
+    "hello"
   end
 
 end
