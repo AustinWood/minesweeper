@@ -30,10 +30,12 @@ class Board
         elsif tile.revealed
           row_str << "  "
         else
-          #row_str << "▢ "
           nearby_mines = tile.nearby_mines(self)
-          row_str << FULL_WIDTH_NUMS[nearby_mines]
-          #puts "nearby mines: #{tile.nearby_mines(self)}"
+          if nearby_mines.zero?
+            row_str << "▢ "
+          else
+            row_str << FULL_WIDTH_NUMS[nearby_mines]
+          end
         end
       end
       puts row_str

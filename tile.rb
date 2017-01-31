@@ -31,14 +31,11 @@ class Tile
     tile_pos = pos(board)
     NEARBY.each do |el|
       new_pos = [tile_pos[0] + el[0], tile_pos[1] + el[1]]
-      # TODO - Move in_bouds? to Tile class?
-      # Or is this even necessary???
       next unless board.in_bounds?(new_pos)
       count += 1 if board[new_pos].mine
     end
     count
   end
-
 
   def pos(board)
     board.grid.each_with_index do |row, i|
