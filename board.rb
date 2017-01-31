@@ -29,7 +29,9 @@ class Board
         elsif tile.revealed
           row_str << "  "
         else
-          row_str << "▢ "
+          #row_str << "▢ "
+          row_str << "#{tile.nearby_mines(self)} "
+          #puts "nearby mines: #{tile.nearby_mines(self)}"
         end
       end
       puts row_str
@@ -40,6 +42,10 @@ class Board
   def [](pos)
     row, col = pos
     grid[row][col]
+  end
+
+  def in_bounds?(pos)
+    pos.all? { |i| i >= 0 && i < @size }
   end
 
 end

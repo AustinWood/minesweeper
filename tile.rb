@@ -1,6 +1,7 @@
-require_relative './board.rb'
+require 'byebug'
 
 class Tile
+  NEARBY = [[1,-1],[1,0],[1,1],[0,-1],[0,1],[-1,-1],[-1,0],[-1,1]]
   attr_accessor :mine, :flagged, :revealed
 
   def initialize(mine)
@@ -25,29 +26,19 @@ class Tile
     @revealed = true
   end
 
-  def mine_count(board)
-    mine_count = 0
-    mine_count += horiz_mines(board)
-    mine_count += vert_mines(board)
+  def nearby_mines(board)
+    count = 0
+    tile_pos = pos(board)
+    NEARBY.each do |el|
+      new_pos = [tile_pos[0] + el[0], tile_pos[1] + el[1]]
+      # TODO - Move in_bouds? to Tile class?
+      # Or is this even necessary???
+      next unless board.in_bounds?(new_pos)
+      count += 1 if board[new_pos].mine
+    end
+    count
   end
 
-  def horiz_mines(board)
-    self_pos = self.pos(board)
-    left_pos = [self_pos.first, self_pos.last - 1]
-    right_pos = [self_pos.first, self_pos.last + 1]
-    mine_count = 0
-    if left_pos[1] >= 0
-      mine_count += 1 if board[left_pos].mine
-    end
-    if right_pos[1] < board.size
-      mine_count += 1 if board[right_pos].mine
-    end
-    mine_count
-  end
-
-  def vert_mines(board)
-    
-  end
 
   def pos(board)
     board.grid.each_with_index do |row, i|
