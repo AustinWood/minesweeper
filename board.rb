@@ -1,6 +1,7 @@
 require_relative './tile.rb'
 
 class Board
+  FULL_WIDTH_NUMS = %w(０ １ ２ ３ ４ ５ ６ ７ ８ ９)
   attr_reader :grid, :size
 
   def initialize(size = 9)
@@ -30,7 +31,8 @@ class Board
           row_str << "  "
         else
           #row_str << "▢ "
-          row_str << "#{tile.nearby_mines(self)} "
+          nearby_mines = tile.nearby_mines(self)
+          row_str << FULL_WIDTH_NUMS[nearby_mines]
           #puts "nearby mines: #{tile.nearby_mines(self)}"
         end
       end
